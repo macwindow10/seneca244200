@@ -3,7 +3,7 @@ Project Milestone 1
 Module: Menu
 Filename: constants.h
 Version 1.0
-Author   John Doe
+Author   saiibi
 Revision History
 -----------------------------------------------------------
 Date        Reason
