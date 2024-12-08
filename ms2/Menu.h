@@ -33,6 +33,7 @@ class MenuItem {
 
     void display(std::ostream& ostr) const {
         if (m_content) {
+            // ostr << m_indents << m_size << '\n';
             ostr << std::string(m_indents * m_size, ' ');
             if (m_row >= 0) {
                 ostr << std::setw(2) << std::setfill(' ') << m_row << "- ";
@@ -106,16 +107,16 @@ class Menu {
 
         // if (exitOption) {
         // exitOption->display(std::cout);
-        std::cout << std::string(exitOption->m_indents * exitOption->m_size, ' ');
-
+        // std::cout << exitOption->m_indents << exitOption->m_size << std::endl;
+        std::cout << std::string(items[0]->m_indents * items[0]->m_size, ' ');
         std::cout << std::setw(2) << std::setfill(' ') << "0" << "- ";
-
         std::cout << exitOption->m_content << '\n';
         //}
 
         // selectionPrompt->display(std::cout);
         for (unsigned int i = 0; i < selectionPrompt->m_indents * selectionPrompt->m_size; ++i)
             std::cout << ' ';
+        std::cout << std::string(items[0]->m_indents * items[0]->m_size, ' ');
         std::cout << selectionPrompt->m_content;
 
         int selection = Utils::getInt(0, static_cast<int>(numOfItems));
