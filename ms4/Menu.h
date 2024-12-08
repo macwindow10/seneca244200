@@ -111,6 +111,7 @@ class Menu {
             if (title->m_content == nullptr) {
                 // std::cout << "title->m_content is null" << '\n';
             } else {
+                std::cout << std::string(6, ' ');
                 std::cout << title->m_content << '\n';
             }
             // std::cout << "select 1.3\n";

@@ -89,7 +89,7 @@ bool Ordering::hasUnsavedBill() const {
 
 // List available foods
 void Ordering::listFoods() const {
-    std::cout << "List Of Available Meals\n========================================\n";
+    std::cout << "List Of Avaiable Meals\n========================================\n";
     for (unsigned i = 0; i < foodCounter; ++i) {
         foodArray[i].print(std::cout);
     }
@@ -98,7 +98,7 @@ void Ordering::listFoods() const {
 
 // List available drinks
 void Ordering::ListDrinks() const {
-    std::cout << "List Of Available Drinks\n========================================\n";
+    std::cout << "List Of Avaiable Drinks\n========================================\n";
     for (unsigned i = 0; i < drinkCounter; ++i) {
         drinkArray[i].print(std::cout);
     }
@@ -113,7 +113,6 @@ void Ordering::orderFood() {
         menu << foodArray[i];
     }
     int selection = menu.select();
-
     if (selection > 0) {
         Food* orderedFood = new Food(foodArray[selection - 1]);
         if (orderedFood->order()) {

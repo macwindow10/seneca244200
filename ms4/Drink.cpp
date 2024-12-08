@@ -5,7 +5,7 @@ namespace seneca {
 ostream& Drink::print(ostream& ostr) const {
     // ostr << "m_size: " << m_size << endl;
     ostr << left << setw(28) << setfill('.') << (m_size ? m_name : m_name);
-    ostr << " ";
+    // ostr << " ";
     if (m_size == 'S')
         ostr << "SML..";
     else if (m_size == 'M')
@@ -16,18 +16,20 @@ ostream& Drink::print(ostream& ostr) const {
         ostr << "XLR..";
     else
         ostr << ".....";
-    ostr << " " << right << setw(7) << setfill(' ') << fixed << setprecision(2)
+    ostr << "" << right << setw(7) << setfill(' ') << fixed << setprecision(2)
          << price() << endl;
     return ostr;
 }
 
 bool Drink::order() {
-    cout << "Drink Size Selection\n"
-         << "   1- Small\n"
-         << "   2- Medium\n"
-         << "   3- Large\n"
-         << "   4- Extra Large\n"
-         << "   0- Back\n> ";
+    cout << "         Drink Size Selection\n"
+         << "          1- Small\n"
+         << "          2- Medium\n"
+         << "          3- Larg\n"
+         << "          4- Extra Large\n"
+         << "          0- Back\n";
+    std::cout << std::string(9, ' ');
+    std::cout << "> ";
     int selection;
     cin >> selection;
     switch (selection) {

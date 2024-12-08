@@ -4,12 +4,12 @@ namespace seneca {
 
 ostream& Food::print(ostream& ostr) const {
     ostr << left << setw(28) << setfill('.') << (ordered() ? m_name : m_name);
-    ostr << " ";
+    // ostr << " ";
     if (ordered())
         ostr << (m_child ? "Child" : "Adult");
     else
         ostr << ".....";
-    ostr << " " << right << setw(7) << setfill(' ') << fixed << setprecision(2) << price();
+    ostr << "" << right << setw(7) << setfill(' ') << fixed << setprecision(2) << price();
     if (m_customize && &ostr == &cout) {
         ostr << " >> " << m_customize;
     }
@@ -18,10 +18,12 @@ ostream& Food::print(ostream& ostr) const {
 }
 
 bool Food::order() {
-    cout << "Food Size Selection\n"
-         << "   1- Adult\n"
-         << "   2- Child\n"
-         << "   0- Back\n> ";
+    cout << "         Food Size Selection\n"
+         << "          1- Adult\n"
+         << "          2- Child\n"
+         << "          0- Back\n";
+    std::cout << std::string(9, ' ');
+    std::cout << "> ";
     int selection;
     cin >> selection;
     if (selection == 1) {
