@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Project Milestone 4
+Project Milestone 5
 Module: Menu
 Filename: Menu.h
 Version 3.0
@@ -105,13 +105,13 @@ class Menu {
         if (title != nullptr) {
             // std::cout << "select 1.1\n";
             // std::cout << title->m_indents << title->m_size;
-            for (unsigned int i = 0; i < title->m_indents * title->m_size; ++i)
-                std::cout << ' ';
+            // for (unsigned int i = 0; i < title->m_indents * title->m_size; ++i)
+            // std::cout << ' ';
             // std::cout << "select 1.2\n";
             if (title->m_content == nullptr) {
                 // std::cout << "title->m_content is null" << '\n';
             } else {
-                std::cout << std::string(6, ' ');
+                // std::cout << std::string(6, ' ');
                 std::cout << title->m_content << '\n';
             }
             // std::cout << "select 1.3\n";

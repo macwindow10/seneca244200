@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Project Milestone 4
+Project Milestone 5
 Module: Order
 Filename: Ordering.h
 Version 1.0
@@ -46,7 +46,7 @@ class Ordering {
     bool hasUnsavedBill() const;
 
     void listFoods() const;
-    void ListDrinks() const;
+    void listDrinks() const;
     void orderFood();
     void orderDrink();
     void printBill(std::ostream& out) const;

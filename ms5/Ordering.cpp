@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Project Milestone 4
+Project Milestone 5
 Module: Order
 Filename: Ordering.cpp
 Version 1.0
@@ -113,7 +113,7 @@ void Ordering::listFoods() const {
 }
 
 // List available drinks
-void Ordering::ListDrinks() const {
+void Ordering::listDrinks() const {
     std::cout << "List Of Avaiable Drinks\n========================================\n";
     for (unsigned i = 0; i < drinkCounter; ++i) {
         drinkArray[i].print(std::cout);
