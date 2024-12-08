@@ -107,7 +107,7 @@ bool Utils::isInteger(char text[]) const {
     // validation
     bool valid = true;
     // check for integer
-    for (size_t i = 0; i < strlen(text); i++) {
+    for (int i = 0; i < strlen(text); i++) {
         if (!isdigit(text[i])) {
             valid = false;
             break;
