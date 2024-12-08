@@ -32,7 +32,7 @@ class Utils {
         // validation
         bool valid = true;
         // check for integer
-        for (int i = 0; i < strlen(text); i++) {
+        for (size_t i = 0; i < strlen(text); i++) {
             if (!isdigit(text[i])) {
                 valid = false;
                 break;
@@ -43,6 +43,7 @@ class Utils {
 
     static int getInt() {
         char answer[1000];
+        int selection;
         bool valid = false;
         do {
             // input
@@ -58,9 +59,13 @@ class Utils {
             } else if (!isInteger(answer)) {  // if there are other chars except for digits
                 std::cout << "Only an integer please:";
             } else {
+                // std::cout << "answer: " << answer << std::endl;
+                selection = atoi(answer);
+                // std::cout << "selection: " << selection << std::endl;
                 valid = true;
             }
         } while (!valid);
+        return selection;
     }
 
     static int getInt(int min, int max) {

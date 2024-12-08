@@ -29,7 +29,6 @@ int main() {
     ms2 << "Run Test 1" << "Run Test 2" << "Final Milestone Application Demo";
     do {
         selection = ms2.select();
-        std::cout << "selection: " << selection;
         switch (selection) {
             case 0:
                 cout << "Have a good day!" << endl;

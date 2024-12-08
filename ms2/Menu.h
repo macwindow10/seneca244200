@@ -13,18 +13,36 @@ namespace seneca {
 class Menu;
 class MenuItem {
    private:
-    std::string content;
-    unsigned int rowNumber = 0;
-    unsigned int indentLevel = 0;
-    unsigned int indentSize = 0;
+    char* m_content;
+    size_t m_indents;
+    size_t m_size;
+    int m_row;
 
-    MenuItem(const std::string& itemContent, unsigned int rowNum, unsigned int level, unsigned int size)
-        : content(itemContent), rowNumber(rowNum), indentLevel(level), indentSize(size) {}
+    MenuItem(const char* content, size_t indent = 0, size_t indentSize = 0, int row = -1)
+        : m_content(nullptr), m_indents(indent), m_size(indentSize), m_row(row) {
+        if (content && *content != '\0' && std::strlen(content) > 0 &&
+            indent <= 4 && indentSize <= 4 && row <= static_cast<int>(MaximumNumberOfMenuItems)) {
+            m_content = trimLeadingWhitespace(content);
+        }
+    }
+
+    char* trimLeadingWhitespace(const char* str) const {
+        while (*str && std::isspace(*str)) ++str;
+        return strdup(str);
+    }
 
     void display(std::ostream& ostr) const {
-        for (unsigned int i = 0; i < indentLevel * indentSize; ++i)
-            ostr << ' ';
-        ostr << rowNumber << "- " << content << '\n';
+        if (m_content) {
+            ostr << std::string(m_indents * m_size, ' ');
+            if (m_row >= 0) {
+                ostr << std::setw(2) << std::setfill(' ') << m_row << "- ";
+            }
+            ostr << m_content << std::endl;
+        }
+    }
+
+    operator bool() const {
+        return m_content != nullptr;
     }
 
     friend class Menu;
@@ -57,35 +75,56 @@ class Menu {
     }
 
     Menu& operator<<(const char* menuItemContent) {
+        // std::cout << "Menu& Menu::operator << (const char* content): " << menuItemContent << "\n";
         if (numOfItems < MaximumNumberOfMenuItems) {
-            items[numOfItems] = new MenuItem(menuItemContent, numOfItems + 1, indentLevel, indentSize);
+            // std::cout << "operator<<" << menuItemContent << "\n";
+            items[numOfItems] = new MenuItem(menuItemContent, indentLevel, indentSize, numOfItems + 1);
             ++numOfItems;
         }
         return *this;
     }
 
     size_t select() const {
-        if (title) {
-            for (unsigned int i = 0; i < title->indentLevel * title->indentSize; ++i)
+        if (title != nullptr) {
+            // std::cout << "select 1.1\n";
+            // std::cout << title->m_indents << title->m_size;
+            for (unsigned int i = 0; i < title->m_indents * title->m_size; ++i)
                 std::cout << ' ';
-            std::cout << title->content << '\n';
+            // std::cout << "select 1.2\n";
+            if (title->m_content == nullptr) {
+                // std::cout << "title->m_content is null" << '\n';
+            } else {
+                std::cout << title->m_content << '\n';
+            }
+            // std::cout << "select 1.3\n";
         }
 
+        // std::cout << "select 2\n";
+        // std::cout << numOfItems << "\n";
         for (size_t i = 0; i < numOfItems; ++i)
             if (items[i]) items[i]->display(std::cout);
 
-        if (exitOption)
-            exitOption->display(std::cout);
+        // if (exitOption) {
+        // exitOption->display(std::cout);
+        std::cout << std::string(exitOption->m_indents * exitOption->m_size, ' ');
+
+        std::cout << std::setw(2) << std::setfill(' ') << "0" << "- ";
+
+        std::cout << exitOption->m_content << '\n';
+        //}
 
         // selectionPrompt->display(std::cout);
-        for (unsigned int i = 0; i < selectionPrompt->indentLevel * selectionPrompt->indentSize; ++i)
+        for (unsigned int i = 0; i < selectionPrompt->m_indents * selectionPrompt->m_size; ++i)
             std::cout << ' ';
-        std::cout << selectionPrompt->content;
+        std::cout << selectionPrompt->m_content;
 
-        return Utils::getInt(0, static_cast<int>(numOfItems));
+        int selection = Utils::getInt(0, static_cast<int>(numOfItems));
+        // std::cout << "selection: " << selection << std::endl;
+        return selection;
     }
 
     friend size_t operator<<(std::ostream& ostr, const Menu& menu) {
+        // std::cout << "friend size_t operator<<(std::ostream& ostr, const Menu& menu)" << "\n";
         if (&ostr == &std::cout) {
             return menu.select();
         } else {
