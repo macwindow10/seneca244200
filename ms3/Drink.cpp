@@ -3,7 +3,8 @@
 using namespace std;
 namespace seneca {
 ostream& Drink::print(ostream& ostr) const {
-    ostr << left << setw(28) << setfill('.') << (m_size ? m_name : "Unnamed Drink");
+    // ostr << "m_size: " << m_size << endl;
+    ostr << left << setw(28) << setfill('.') << (m_size ? m_name : m_name);
     ostr << " ";
     if (m_size == 'S')
         ostr << "SML..";
@@ -15,7 +16,7 @@ ostream& Drink::print(ostream& ostr) const {
         ostr << "XLR..";
     else
         ostr << ".....";
-    ostr << " " << right << setw(7) << setfill(' ') << fixed << setprecision(2) << price() << endl;
+    ostr << " " << right << setw(7) << setfill(' ') << fixed << setprecision(2) << price();
     return ostr;
 }
 

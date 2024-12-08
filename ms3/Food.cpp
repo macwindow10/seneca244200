@@ -3,7 +3,7 @@ using namespace std;
 namespace seneca {
 
 ostream& Food::print(ostream& ostr) const {
-    ostr << left << setw(28) << setfill('.') << (ordered() ? m_name : "Unnamed Food");
+    ostr << left << setw(28) << setfill('.') << (ordered() ? m_name : m_name);
     ostr << " ";
     if (ordered())
         ostr << (m_child ? "Child" : "Adult");
@@ -13,7 +13,7 @@ ostream& Food::print(ostream& ostr) const {
     if (m_customize && &ostr == &cout) {
         ostr << " >> " << m_customize;
     }
-    ostr << endl;
+    // ostr << endl;
     return ostr;
 }
 
