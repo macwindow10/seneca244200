@@ -21,7 +21,7 @@
 namespace seneca {
 class Utils {
    public:
-    bool isInteger(char text[]) const;
+    int isInteger(char text[]) const;
     int getint(int defaultValue) const;
     int getInt(int min, int max) const;
     int getInt() const;

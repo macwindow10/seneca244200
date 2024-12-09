@@ -11,6 +11,7 @@
 // -----------------------------------------------------------
 // Name            Date            Reason
 // Fardad          11-20           makeBillFileName
+// saiibi          12-09           getInt method updated to validate user input
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 #include <iostream>
@@ -21,41 +22,79 @@ Utils ut;
 bool debug = false;
 const size_t AllocationBlockSize = 128;
 
-bool Utils::isInteger(char text[]) const {
+int Utils::isInteger(char text[]) const {
+    bool allDigits = true;
+    bool allCharacters = true;
+    // bool mixed = false;
     // validation
-    bool valid = true;
-    // check for integer
     for (int i = 0; i < strlen(text); i++) {
-        if (!isdigit(text[i])) {
-            valid = false;
-            break;
+        if (i == 0 && text[i] == '-') {
+            if (strlen(text) == 1) {
+                allCharacters = true;  // Input is just "-"
+                break;
+            }
+            continue;  // Allow negative sign at the start
+        }
+        if (std::isdigit(text[i])) {
+            allCharacters = false;
+        } else {
+            allDigits = false;
+            // mixed = true;
         }
     }
-    return valid;
+    if (allCharacters == false && allDigits == false) {
+        return -2;  // mixed
+    }
+
+    if (allDigits == false) {
+        return -1;
+    }
+    return 1;
+    // return valid;
 }
 
 int Utils::getInt() const {
+    // std::string input;
     char answer[1000];
     int selection;
     bool valid = false;
     do {
         // input
         std::cin >> answer;
+        /*
+        while (true) {
+            std::getline(std::cin, input);
+            if (input.empty()) {
+                std::cout << "You must enter a value: ";
+                continue;
+            }
+            input.copy(answer, input.size());
+            answer[input.size()] = '\0';
+            break;
+        }
+        */
         // validation
-
         if (std::cin.fail()) {  // if cin fails
 
         } else if (strlen(answer) == 0) {  // if empty
-            std::cout << "You must enter a value:";
-        } else if (!isdigit(answer[0])) {  // if not an integer
-            std::cout << "Invalid integer:";
-        } else if (!isInteger(answer)) {  // if there are other chars except for digits
-            std::cout << "Only an integer please:";
+            std::cout << "You must enter a value: ";
+        } /*else if (!isdigit(answer[0])) {  // if not an integer
+            std::cout << "Invalid integer: ";
+        }*/
+        else if (isInteger(answer) == -1) {  // if there are other chars except for digits
+            std::cout << "Invalid integer: ";
+        } else if (isInteger(answer) == -2) {  // if there are other chars except for digits
+            std::cout << "Only an integer please: ";
         } else {
             // std::cout << "answer: " << answer << std::endl;
-            selection = atoi(answer);
-            // std::cout << "selection: " << selection << std::endl;
-            valid = true;
+            try {
+                selection = atoi(answer);
+                valid = true;
+            } catch (const std::invalid_argument&) {
+                std::cout << "Invalid integer: ";
+            } catch (const std::out_of_range&) {
+                // std::cout << "Error: Number out of range. Please enter a smaller integer.\n";
+            }
         }
     } while (!valid);
     return selection;
@@ -67,7 +106,7 @@ int Utils::getInt(int min, int max) const {
     while (!valid) {
         value = getInt();
         if (value < min || value > max) {
-            std::cout << "Invalid value: [" << min << " <= value <= " << max << "], try again:\n";
+            std::cout << "Invalid value: [" << min << "<= value <=" << max << "], try again: ";
         } else {
             valid = true;
         }
