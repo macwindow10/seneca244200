@@ -54,14 +54,14 @@ int Utils::isInteger(char text[]) const {
 }
 
 int Utils::getInt() const {
-    // std::string input;
+    std::string input;
     char answer[1000];
     int selection;
     bool valid = false;
     do {
         // input
-        std::cin >> answer;
-        /*
+        // std::cin >> answer;
+
         while (true) {
             std::getline(std::cin, input);
             if (input.empty()) {
@@ -72,7 +72,7 @@ int Utils::getInt() const {
             answer[input.size()] = '\0';
             break;
         }
-        */
+
         // validation
         if (std::cin.fail()) {  // if cin fails
 
