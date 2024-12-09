@@ -196,9 +196,9 @@ void Ordering::billTitlePrint(std::ostream& out) const {
 void Ordering::printTotals(std::ostream& out, double total) const {
     double tax = total * Tax;
     out << std::fixed << std::setprecision(2);
-    out << "                     Total:        " << total << "\n"
+    out << "                     Total:         " << total << "\n"
         << "                     Tax:           " << tax << "\n"
-        << "                     Total+Tax:    " << (total + tax) << "\n"
+        << "                     Total+Tax:     " << (total + tax) << "\n"
         << "========================================\n";
 }
 }  // namespace seneca
